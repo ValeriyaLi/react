@@ -20,28 +20,54 @@ function App() {
     ])
 
     const [title, setTitle] = useState('')
-    const bodyInputRef = useRef();
+    const [body, setBody] = useState('')
+    {/*
+        const bodyInputRef = useRef();
+    */}
 
     const addNewPost = (e) =>{
         e.preventDefault();
-        console.log(title)
+        const newPost = {
+            id: Date.now(),
+            title,
+            body
+        }
+        setPosts([...posts, newPost])
+
+        {/*
+            console.log(bodyInputRef.current.value)
+        */}
     }
 
   return (
     <div className="App">
         <form>
+            {/*Управляемый компонент*/}
             <MyInput
                 value={title}
                 onChange={e => setTitle(e.target.value)}
                 type={"text"}
                 placeholder={"Name of Post"}/>
-            <MyInput
+            {/*Неуправляемый/Неконтролируемый компонент*/}
+            {/*<MyInput
                 ref={bodyInputRef}
                 type={"text"}
                 placeholder={"Description of Post"}
+            />*/}
+
+            <MyInput
+                value={body}
+                onChange={e => setBody(e.target.value)}
+                type={"text"}
+                placeholder={"Description of Post"}
             />
+
+
             <MyButton onClick={addNewPost}>Create Post</MyButton>
         </form>
+
+
+
         <PostList posts={posts} title={"List of Posts fot js"}/>
         <PostList posts={posts2} title={'List of Posts for Python'}/>
     </div>
