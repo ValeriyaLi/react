@@ -6,6 +6,7 @@ import PostItem from "./components/PostItem";
 import PostList from "./components/postList";
 import MyButton from "./UI/button/MyButton";
 import MyInput from "./UI/input/MyInput";
+import PostForm from "./components/PostForm";
 function App() {
     const [posts, setPosts] = useState([
         {id: 1, title: 'JavaScript', body: 'Description'},
@@ -19,52 +20,13 @@ function App() {
         {id: 3, title: 'Python 3', body: 'Description'}
     ])
 
-    const [title, setTitle] = useState('')
-    const [body, setBody] = useState('')
-    const [post, setPost] = useState({title: '', body:''})
-
-
-    {/*
-        const bodyInputRef = useRef();
-    */}
-
-    const addNewPost = (e) =>{
-        e.preventDefault();
-        setPosts([...posts, {...post, id:Date.now()}])
-        setPost({title: '', body:''})
-        {/*
-            console.log(bodyInputRef.current.value)
-        */}
+    const createPost = (newPost) => {
+        setPosts([...posts, newPost])
     }
 
   return (
     <div className="App">
-        <form>
-            {/*Управляемый компонент*/}
-            <MyInput
-                value={post.title}
-                onChange={e => setPost({...post, title:e.target.value})}
-                type={"text"}
-                placeholder={"Name of Post"}/>
-            {/*Неуправляемый/Неконтролируемый компонент*/}
-            {/*<MyInput
-                ref={bodyInputRef}
-                type={"text"}
-                placeholder={"Description of Post"}
-            />*/}
-
-            <MyInput
-                value={post.body}
-                onChange={e => setPost({...post, body: e.target.value})}
-                type={"text"}
-                placeholder={"Description of Post"}
-            />
-
-
-            <MyButton onClick={addNewPost}>Create Post</MyButton>
-        </form>
-
-
+        <PostForm create={createPost}/>
 
         <PostList posts={posts} title={"List of Posts fot js"}/>
         <PostList posts={posts2} title={'List of Posts for Python'}/>
